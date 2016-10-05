@@ -122,6 +122,122 @@ def load_precal_files():
     # print len(description)
     # print description
 
+
+def check_ko_num(lst):  # find all ko associated whit this otu
+    index_lst = []
+    for i in range(0, len(lst), 1):
+        # print float(lst[i])
+        if float(lst[i]) > 0:
+            index_lst.append(i)
+    # print index_lst
+    # print len(index_lst), "the ko isnot zero"
+
+    # metabo_index = []
+    # for idx in index_lst:
+    #     print idx
+    #
+    #     print pathways[4]
+    #     print pathways[idx]
+    # #     if "Metabolism" in description[idx]:
+    # #         metabo_index.append(idx)
+    # #
+    # # print len(metabo_index), "metabo_index"
+
+    return index_lst
+
+
+
+def load_precal_files():
+    global description
+    global pathways
+    global ko
+    global all_meta_fun
+
+    with open(description_file, "r") as fp:
+        for line in fp:
+            if line != "":
+                description = line.split("\t")[1:]
+                # print type(description)
+    # print len(description)
+    # print description
+
+def check_ko_num(lst):  # find all ko associated whit this otu
+    index_lst = []
+    for i in range(0, len(lst), 1):
+        # print float(lst[i])
+        if float(lst[i]) > 0:
+            index_lst.append(i)
+    # print index_lst
+    # print len(index_lst), "the ko isnot zero"
+
+    # metabo_index = []
+    # for idx in index_lst:
+    #     print idx
+    #
+    #     print pathways[4]
+    #     print pathways[idx]
+    # #     if "Metabolism" in description[idx]:
+    # #         metabo_index.append(idx)
+    # #
+    # # print len(metabo_index), "metabo_index"
+
+    return index_lst
+
+
+
+def load_precal_files():
+    global description
+    global pathways
+    global ko
+    global all_meta_fun
+
+    with open(description_file, "r") as fp:
+        for line in fp:
+            if line != "":
+                description = line.split("\t")[1:]
+                # print type(description)
+    # print len(description)
+    # print description
+
+def check_ko_num(lst):  # find all ko associated whit this otu
+    index_lst = []
+    for i in range(0, len(lst), 1):
+        # print float(lst[i])
+        if float(lst[i]) > 0:
+            index_lst.append(i)
+    # print index_lst
+    # print len(index_lst), "the ko isnot zero"
+
+    # metabo_index = []
+    # for idx in index_lst:
+    #     print idx
+    #
+    #     print pathways[4]
+    #     print pathways[idx]
+    # #     if "Metabolism" in description[idx]:
+    # #         metabo_index.append(idx)
+    # #
+    # # print len(metabo_index), "metabo_index"
+
+    return index_lst
+
+
+
+def load_precal_files():
+    global description
+    global pathways
+    global ko
+    global all_meta_fun
+
+    with open(description_file, "r") as fp:
+        for line in fp:
+            if line != "":
+                description = line.split("\t")[1:]
+                # print type(description)
+    # print len(description)
+    # print description
+
+
     with open(pathways_file, "r") as fp:
         for line in fp:
             if line != "":
@@ -443,6 +559,26 @@ def get_args():
 
 
 def main():
+    starttime = time.time()
+
+    # link the otus and KO start
+    load_precal_files()
+    OTUs_list_file = load_raw_data(options.OTUs_list)
+    # print OTUs_list_file
+    # otu_with_ko_and_fun_dict = filter_otu_from_precal_file(OTUs_list_file)
+    load_mini_ref(OTUs_list_file)
+    # link the otus and KO end
+
+    # process the otu table start
+
+    category_d = load_mapping_file(options.mapping_file)
+    load_otu_table(options.OTUs_table, category_d)
+    # process the otu table end
+
+    print "run time is :", round((time.time() - starttime), 6), "s"
+
+
+def main_new():
     starttime = time.time()
 
     # link the otus and KO start
